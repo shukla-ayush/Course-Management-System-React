@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default class CourseCard extends React.Component
-{ render() { return (
+{render() { return (
     <div className="card" styles={{width: '18rem'}}>
         <img className="card-img-top"
              src="https://picsum.photos/300/200"/>
@@ -13,4 +13,7 @@ export default class CourseCard extends React.Component
                 Card text.
             </p>
             <a href="#" className="btn btn-primary">More...</a>
-        </div></div>)}}
+        </div>
+    </div>)
+}
+}
