@@ -3,31 +3,28 @@ import ModuleListItem from '../components/ModuleListItem';
 import ModuleService from '../services/ModuleService'
 
 export default class ModuleList extends Component {
+
     constructor(props) {
         super(props);
         this.state = {
             courseId: '',
             module: { title: '' },
-            modules: [
-                {title: 'Module 1', id: 123},
-                {title: 'Module 2', id: 234},
-                {title: 'Module 3', id: 345},
-                {title: 'Module 4', id: 456},
-                {title: 'Module 5', id: 567},
-                {title: 'Module 6', id: 678}
-            ]
+            modules: []
         };
         this.createModule = this.createModule.bind(this);
         this.titleChanged = this.titleChanged.bind(this);
+        this.deleteModule = this.deleteModule.bind(this);
 
         this.setCourseId =
             this.setCourseId.bind(this);
 
         this.moduleService = ModuleService.instance;
     }
+
     setModules(modules) {
         this.setState({modules: modules})
     }
+
     findAllModulesForCourse(courseId) {
         this.moduleService
             .findAllModulesForCourse(courseId)
@@ -37,9 +34,12 @@ export default class ModuleList extends Component {
     setCourseId(courseId) {
         this.setState({courseId: courseId});
     }
+
     componentDidMount() {
         this.setCourseId(this.props.courseId);
+        console.log(this.props.courseId);
     }
+
     componentWillReceiveProps(newProps){
         this.setCourseId(newProps.courseId);
         this.findAllModulesForCourse(newProps.courseId)
@@ -49,18 +49,46 @@ export default class ModuleList extends Component {
         console.log(this.state.module);
         this.moduleService
             .createModule(this.props.courseId, this.state.module)
+            .then(() => { this.findAllModulesForCourse(this.props.courseId); });
     }
+
     titleChanged(event) {
         console.log(event.target.value);
         this.setState({module: {title: event.target.value}});
     }
+
     renderListOfModules() {
-        let modules = this.state.modules.map(function(module){
-            return <ModuleListItem module={module}
-                                   key={module.id}/>
-        });
-        return modules;
+        let modules = null;
+        if(this.state) {
+            modules = this.state.modules.map(
+                function (module) {
+                    return <ModuleListItem key={module.id}
+                                      module={module}/>
+                }
+            )
+            modules = this.state.modules.map((module) => {
+                return <ModuleListItem module={module}
+                                  key={module.id}
+                                  deleteModule={this.deleteModule}/>
+            });
+        }
+
+        return (
+            modules
+        )
     }
+
+    deleteModule(moduleId) {
+        this.moduleService
+            .deleteModule(moduleId)
+            .then(() => {
+                this.findAllModulesForCourse
+                (this.state.courseId)
+            }
+            );
+    }
+
+
     render() {
         return (
             <div>

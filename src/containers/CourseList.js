@@ -8,7 +8,17 @@ class CourseList extends React.Component {
         this.courseService = CourseService.instance;
         this.titleChanged = this.titleChanged.bind(this);
         this.createCourse = this.createCourse.bind(this);
+        this.deleteCourse = this.deleteCourse.bind(this);
     }
+
+    deleteCourse(courseId) {
+        console.log('delete ' + courseId);
+        this.courseService
+            .deleteCourse(courseId)
+            .then(() => { this.findAllCourses(); });
+    }
+
+
     componentDidMount() {
         this.findAllCourses();
     }
@@ -20,11 +30,9 @@ class CourseList extends React.Component {
                 this.setState({courses: courses});
             })
     }
+
     renderCourseRows() {
         let courses = null;
-
-        console.log("render coruse rows")
-        console.log(this.state)
         if(this.state) {
             courses = this.state.courses.map(
                 function (course) {
@@ -32,35 +40,49 @@ class CourseList extends React.Component {
                                       course={course}/>
                 }
             )
+            courses = this.state.courses.map((course) => {
+                return <CourseRow course={course}
+                                  key={course.id}
+                                  deleteCourse={this.deleteCourse}/>
+            });
         }
+
         return (
             courses
         )
     }
+
     titleChanged(event) {
         this.setState({
             course: { title: event.target.value }
         });
     }
+
     createCourse() {
         this.courseService
             .createCourse(this.state.course)
             .then(() => { this.findAllCourses(); });
     }
+
     render() {
         return (
             <div>
                 <h2>Course List</h2>
                 <table className="table">
                     <thead>
-                    <tr><th>Title</th></tr>
                     <tr>
                         <th><input onChange={this.titleChanged}
                                    className="form-control" id="titleFld"
-                                   placeholder="cs101"/></th>
+                                   placeholder="CS1010"/></th>
                         <th><button onClick={this.createCourse}
                                     className="btn btn-primary">
-                            Add</button></th>
+                            <i className="fa fa-plus"/></button></th>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <th>Owned by</th>
+                        <th>Last modified by me</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -71,4 +93,5 @@ class CourseList extends React.Component {
         )
     }
 }
+
 export default CourseList;

@@ -9,11 +9,16 @@ export default class ModuleListItem
     render() {
         return (
             <li className="list-group-item">
-                {this.props.title}
-                <span className="float-right">
-                    <i className="fa fa-trash"></i>
-                    <i className="fa fa-pencil"></i>
-                </span>
+                {this.props.module.title}
+                {/*<span className="float-right">*/}
+                    {/*<i className="fa fa-times"></i>*/}
+                {/*</span>*/}
+                <button className="btn btn-primary"
+                        onClick={() =>
+                        {this.props.deleteModule
+                        (this.props.module.id)}}>
+                    <i className="fa fa-times float-right"/>
+                </button>
             </li>
         );
     }
