@@ -9,7 +9,7 @@ import ModuleList2 from "./containers/ModuleList2";
 import App from "./examples/App"
 
 ReactDOM.render(
-    <div className="container-fluid">
+    <div style = {{backgroundColor: "gray"}}>
         <CourseManager/>
     </div>,
     document.getElementById('root')

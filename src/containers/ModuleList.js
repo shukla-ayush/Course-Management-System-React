@@ -14,9 +14,8 @@ export default class ModuleList extends Component {
         this.createModule = this.createModule.bind(this);
         this.titleChanged = this.titleChanged.bind(this);
         this.deleteModule = this.deleteModule.bind(this);
-
-        this.setCourseId =
-            this.setCourseId.bind(this);
+        this.displayLessons = this.displayLessons.bind(this);
+        this.setCourseId = this.setCourseId.bind(this);
 
         this.moduleService = ModuleService.instance;
     }
@@ -69,10 +68,10 @@ export default class ModuleList extends Component {
             modules = this.state.modules.map((module) => {
                 return <ModuleListItem module={module}
                                   key={module.id}
+                                  displayLessons={this.displayLessons}
                                   deleteModule={this.deleteModule}/>
             });
         }
-
         return (
             modules
         )
@@ -88,22 +87,26 @@ export default class ModuleList extends Component {
             );
     }
 
+    displayLessons(moduleId) {
+        this.props.displayLessons(moduleId);
+    }
 
     render() {
         return (
             <div>
-                <h3>Module List for course: {this.state.courseId}</h3>
-                <input onChange={this.titleChanged}
-                       value={this.state.module.title}
-                       placeholder="title"
-                       className="form-control"/>
-                <button onClick={this.createModule} className="btn btn-primary btn-block">
-                    <i className="fa fa-plus"></i>
-                </button>
+                <h3>Modules</h3>
                 <br/>
                 <ul className="list-group">
                     {this.renderListOfModules()}
                 </ul>
+                <br/>
+                <input onChange={this.titleChanged}
+                       value={this.state.module.title}
+                       placeholder="Add module"
+                       className="form-control text-center font-weight-bold"/>
+                <button onClick={this.createModule} className="btn btn-dark btn-block">
+                    <i className="fa fa-plus"></i>
+                </button>
             </div>
         );
     }

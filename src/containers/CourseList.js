@@ -1,5 +1,6 @@
 import React from 'react';
 import CourseRow from "../components/CourseRow";
+import CourseCard from "../components/CourseCard";
 import CourseService from "../services/CourseService";
 
 class CourseList extends React.Component {
@@ -18,10 +19,10 @@ class CourseList extends React.Component {
             .then(() => { this.findAllCourses(); });
     }
 
-
     componentDidMount() {
         this.findAllCourses();
     }
+    
     findAllCourses() {
         this.courseService
             .findAllCourses()
@@ -67,7 +68,7 @@ class CourseList extends React.Component {
     render() {
         return (
             <div>
-                <h2>Course List</h2>
+                <h2 style = {{backgroundColor: "black", color: "white"}}>Course Manager</h2>
                 <table className="table">
                     <thead>
                     <tr>
@@ -75,7 +76,7 @@ class CourseList extends React.Component {
                                    className="form-control" id="titleFld"
                                    placeholder="CS1010"/></th>
                         <th><button onClick={this.createCourse}
-                                    className="btn btn-primary">
+                                    className="btn btn-dark">
                             <i className="fa fa-plus"/></button></th>
                     </tr>
                     <tr>

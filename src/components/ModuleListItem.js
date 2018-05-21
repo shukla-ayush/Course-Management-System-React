@@ -8,17 +8,21 @@ export default class ModuleListItem
 
     render() {
         return (
-            <li className="list-group-item">
-                {this.props.module.title}
-                {/*<span className="float-right">*/}
-                    {/*<i className="fa fa-times"></i>*/}
-                {/*</span>*/}
-                <button className="btn btn-primary"
+            <li className="container-fluid list-group-item font-weight-bold">
+                <div>
+                <a href="#" className="float-left text-dark"
+                        onClick={() =>
+                        {this.props.displayLessons
+                        (this.props.module.id)}}>
+                    {this.props.module.title}
+                </a>
+                <button className="btn btn-dark float-right"
                         onClick={() =>
                         {this.props.deleteModule
                         (this.props.module.id)}}>
-                    <i className="fa fa-times float-right"/>
+                    <i className="fa fa-times"/>
                 </button>
+                </div>
             </li>
         );
     }
