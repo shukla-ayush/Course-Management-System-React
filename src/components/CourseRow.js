@@ -17,11 +17,11 @@ class CourseRow extends React.Component {
                     me
                 </td>
                 <td>
-
+                    {this.props.course.modified}
                 </td>
                 <td>
                     <button onClick={() => {
-                        this.props.deleteCourse(this.props.course.id)}} className="btn btn-dark">
+                        this.props.deleteCourse(this.props.course.id)}} className="btn btn-primary">
                         <i className="fa fa-times"/>
                     </button>
                 </td>

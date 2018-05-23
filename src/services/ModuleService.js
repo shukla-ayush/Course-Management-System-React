@@ -4,6 +4,9 @@ const MODULE_API_URL =
 const MODULE_API_URL2 =
     'http://localhost:8085/api/module/MODULE_ID';
 
+const MODULE_API_URL3 =
+    'http://localhost:8085/api/module';
+
 let _singleton = Symbol();
 export default class ModuleService {
     constructor(singletonToken) {
@@ -37,16 +40,13 @@ export default class ModuleService {
         return this[_singleton]
     }
 
-    // deleteModule(courseId,moduleId) {
-    //     console.log('delete ' + courseId);
-    //     return fetch(MODULE_API_URL.replace('CID', courseId) + '/' + moduleId,
-    //         {
-    //             method: 'DELETE'
-    //         }).then(function (response) {
-    //         return response.json();
-    //     })
-    //
-    // }
+    findAllModules() {
+        return fetch(MODULE_API_URL3)
+            .then(function(response){
+                return response.json();
+            });
+    }
+
     deleteModule(moduleId) {
         return fetch(MODULE_API_URL2.replace
         ('MODULE_ID', moduleId), {

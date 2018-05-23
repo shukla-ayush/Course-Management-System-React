@@ -4,6 +4,9 @@ const LESSON_API_URL =
 const LESSON_API_URL2 =
     'http://localhost:8085/api/lesson/LESSON_ID';
 
+const LESSON_API_URL3 =
+    'http://localhost:8085/api/lesson';
+
 let _singleton = Symbol();
 export default class LessonService {
 
@@ -40,6 +43,13 @@ export default class LessonService {
                 method: 'POST'
             }).then(function (response)
         { return response.json(); })
+    }
+
+    findAllLessons() {
+        return fetch(LESSON_API_URL3)
+            .then(function(response){
+                return response.json();
+            });
     }
 
     deleteLesson(lessonId) {

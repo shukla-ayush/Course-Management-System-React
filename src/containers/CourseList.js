@@ -1,6 +1,5 @@
 import React from 'react';
 import CourseRow from "../components/CourseRow";
-import CourseCard from "../components/CourseCard";
 import CourseService from "../services/CourseService";
 
 class CourseList extends React.Component {
@@ -12,22 +11,36 @@ class CourseList extends React.Component {
         this.deleteCourse = this.deleteCourse.bind(this);
     }
 
-    deleteCourse(courseId) {
-        console.log('delete ' + courseId);
-        this.courseService
-            .deleteCourse(courseId)
-            .then(() => { this.findAllCourses(); });
-    }
-
     componentDidMount() {
         this.findAllCourses();
     }
+
+    titleChanged(event) {
+        this.setState({
+            course: { title: event.target.value, created: Date.now(), modified: Date.now() }
+        });
+    }
+
+    createCourse() {
+        this.courseService
+            .createCourse(this.state.course)
+            .then(() => { this.findAllCourses(); });
+    }
+
+    deleteCourse(courseId) {
+        var answer = window.confirm("Click Ok to delete");
+        if (answer == true){
+        this.courseService
+            .deleteCourse(courseId)
+            .then(() => { this.findAllCourses(); })
+        ;}
+    }
+
     
     findAllCourses() {
         this.courseService
             .findAllCourses()
             .then((courses) => {
-                console.log(courses);
                 this.setState({courses: courses});
             })
     }
@@ -53,32 +66,57 @@ class CourseList extends React.Component {
         )
     }
 
-    titleChanged(event) {
-        this.setState({
-            course: { title: event.target.value }
-        });
-    }
-
-    createCourse() {
-        this.courseService
-            .createCourse(this.state.course)
-            .then(() => { this.findAllCourses(); });
-    }
 
     render() {
         return (
             <div>
                 <h2 style = {{backgroundColor: "black", color: "white"}}>Course Manager</h2>
+                <br/>
+                {/*<div className="row">*/}
+                    {/*<div className="col-sm-2">*/}
+                    {/*</div>*/}
+                    {/*<div className="col-sm-8 row" >*/}
+                        {/*<div className="col-sm-10">*/}
+                        {/*<input onChange={this.titleChanged}*/}
+                               {/*className="form-control" id="titleFld"*/}
+                               {/*placeholder="Add Course"/>*/}
+                        {/*</div>*/}
+                        {/*<div className="col-sm-2">*/}
+                        {/*<button onClick={this.createCourse}*/}
+                                {/*className="btn btn-dark">*/}
+                            {/*<i className="fa fa-plus"/>*/}
+                        {/*</button>*/}
+                        {/*</div>*/}
+                    {/*</div>*/}
+                    {/*<div className="col-sm-2">*/}
+                    {/*</div>*/}
+                {/*</div>*/}
+
+                <div>
+                <div className="col-sm-10">
+                <input onChange={this.titleChanged}
+                className="form-control" id="titleFld"
+                placeholder="Add Course"/>
+                </div>
+                <div className="col-sm-2">
+                <button onClick={this.createCourse}
+                className="btn btn-dark">
+                <i className="fa fa-plus"/>
+                </button>
+                </div>
+                </div>
+                <br/>
                 <table className="table">
                     <thead>
-                    <tr>
-                        <th><input onChange={this.titleChanged}
-                                   className="form-control" id="titleFld"
-                                   placeholder="CS1010"/></th>
-                        <th><button onClick={this.createCourse}
-                                    className="btn btn-dark">
-                            <i className="fa fa-plus"/></button></th>
-                    </tr>
+                    {/*<tr>*/}
+                        {/*<th></th>*/}
+                        {/*<th><input onChange={this.titleChanged}*/}
+                                   {/*className="form-control" id="titleFld"*/}
+                                   {/*placeholder="CS1010"/></th>*/}
+                        {/*<th><button onClick={this.createCourse}*/}
+                                    {/*className="btn btn-dark">*/}
+                            {/*<i className="fa fa-plus"/></button></th>*/}
+                    {/*</tr>*/}
                     <tr>
                         <th>Title</th>
                         <th>Owned by</th>
