@@ -1,11 +1,11 @@
 const TOPIC_API_URL =
-    'https://fathomless-brook-39975.herokuapp.com/api/course/CID/module/MID/lesson/LID/topic';
+    'http://fathomless-brook-39975.herokuapp.com/api/course/CID/module/MID/lesson/LID/topic';
 
 const TOPIC_API_URL2 =
-    'https://fathomless-brook-39975.herokuapp.com/api/topic/TOPIC_ID';
+    'http://fathomless-brook-39975.herokuapp.com/api/topic/TOPIC_ID';
 
 const TOPIC_API_URL3 =
-    'https://fathomless-brook-39975.herokuapp.com/api/topic';
+    'http://fathomless-brook-39975.herokuapp.com/api/topic';
 
 let _singleton = Symbol();
 export default class TopicService {
