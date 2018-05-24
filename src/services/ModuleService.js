@@ -1,8 +1,9 @@
-const MODULE_API_URL =
-    'https://fathomless-brook-39975.herokuapp.com/api/course/CID/module';
+const MODULE_API_URL = //'http://localhost:8085/api/course/CID/module';
+             'https://fathomless-brook-39975.herokuapp.com/api/course/CID/module';
+    //'https://fathomless-brook-39975.herokuapp.com/api/course/CID/module';
 
-const MODULE_API_URL2 =
-    'https://fathomless-brook-39975.herokuapp.com/api/module/MODULE_ID';
+const MODULE_API_URL2 = 'https://fathomless-brook-39975.herokuapp.com/api/module/MODULE_ID';//'http://localhost:8085/api/course/CID/module/MODULE_ID';
+   // 'https://fathomless-brook-39975.herokuapp.com/api/module/MODULE_ID';
 
 const MODULE_API_URL3 =
     'https://fathomless-brook-39975.herokuapp.com/api/module';
