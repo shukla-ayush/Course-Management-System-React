@@ -1,7 +1,7 @@
 import React from 'react'
 import ModuleList from './ModuleList'
 import LessonTabs from './LessonTabs'
-import TopicList from './TopicList'
+import TopicPills from './TopicPills'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import CourseList from "./CourseList";
 import ModuleEditor from "./ModuleEditor";
@@ -14,7 +14,6 @@ export default class CourseEditor
         this.state = {courseId: '', moduleId: '', lessonId: ''};
         this.selectCourse = this.selectCourse.bind(this);
         this.displayLessons = this.displayLessons.bind(this);
-        // this.displayTopics = this.displayTopics.bind(this);
     }
 
     componentDidMount() {
@@ -30,31 +29,10 @@ export default class CourseEditor
         this.setState({moduleId: moduleId});
     }
 
-    // displayTopics(lessonId){
-    //     this.setState({lessonId: lessonId});
-    // }
 
     render() { return(
         <div>
-            <h2 style={{backgroundColor: "black",color: "white", textAlign: "left" }}>Course: {this.state.courseId}</h2>
+            <h1 style={{backgroundColor: "black",color: "white", textAlign: "center" }}>Course: {this.state.courseId}</h1>
             <ModuleList courseId={this.state.courseId}/>
         </div>
     );}}
-
-    // render() { return(
-    //     <div>
-    //         <h2 style={{backgroundColor: "black",color: "white" }}>Course: {this.state.courseId}</h2>
-    //         <Router>
-    //         <div className="row">
-    //             <div className="col-4">
-    //                 <Route path="/course/:courseId"
-    //                        component={ModuleList}/>
-    //             </div>
-    //             <div className="col-8">
-    //                 <Route path="/course/:courseId/module/:moduleId"
-    //                        component={LessonTabs}/>
-    //             </div>
-    //         </div>
-    //         </Router>
-    //     </div>
-    // );}}

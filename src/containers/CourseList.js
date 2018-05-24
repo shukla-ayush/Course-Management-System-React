@@ -70,53 +70,31 @@ class CourseList extends React.Component {
     render() {
         return (
             <div>
-                <h2 style = {{backgroundColor: "black", color: "white"}}>Course Manager</h2>
+                <h1 style = {{backgroundColor: "black", color: "white", textAlign: "center"}}>Course Manager</h1>
                 <br/>
-                {/*<div className="row">*/}
-                    {/*<div className="col-sm-2">*/}
-                    {/*</div>*/}
-                    {/*<div className="col-sm-8 row" >*/}
-                        {/*<div className="col-sm-10">*/}
-                        {/*<input onChange={this.titleChanged}*/}
-                               {/*className="form-control" id="titleFld"*/}
-                               {/*placeholder="Add Course"/>*/}
-                        {/*</div>*/}
-                        {/*<div className="col-sm-2">*/}
-                        {/*<button onClick={this.createCourse}*/}
-                                {/*className="btn btn-dark">*/}
-                            {/*<i className="fa fa-plus"/>*/}
-                        {/*</button>*/}
-                        {/*</div>*/}
-                    {/*</div>*/}
-                    {/*<div className="col-sm-2">*/}
-                    {/*</div>*/}
-                {/*</div>*/}
+                <div className="row">
+                    <div className="col-sm-2">
+                    </div>
+                    <div className="col-sm-8 row" >
+                        <div className="col-sm-10">
+                        <input onChange={this.titleChanged}
+                               className="form-control" id="titleFld"
+                               placeholder="Add Course"/>
+                        </div>
+                        <div className="col-sm-2">
+                        <button onClick={this.createCourse}
+                                className="btn btn-dark">
+                            <i className="fa fa-plus"/>
+                        </button>
+                        </div>
+                    </div>
+                    <div className="col-sm-2">
+                    </div>
+                </div>
 
-                <div>
-                <div className="col-sm-10">
-                <input onChange={this.titleChanged}
-                className="form-control" id="titleFld"
-                placeholder="Add Course"/>
-                </div>
-                <div className="col-sm-2">
-                <button onClick={this.createCourse}
-                className="btn btn-dark">
-                <i className="fa fa-plus"/>
-                </button>
-                </div>
-                </div>
                 <br/>
                 <table className="table">
                     <thead>
-                    {/*<tr>*/}
-                        {/*<th></th>*/}
-                        {/*<th><input onChange={this.titleChanged}*/}
-                                   {/*className="form-control" id="titleFld"*/}
-                                   {/*placeholder="CS1010"/></th>*/}
-                        {/*<th><button onClick={this.createCourse}*/}
-                                    {/*className="btn btn-dark">*/}
-                            {/*<i className="fa fa-plus"/></button></th>*/}
-                    {/*</tr>*/}
                     <tr>
                         <th>Title</th>
                         <th>Owned by</th>

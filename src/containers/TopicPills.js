@@ -1,8 +1,9 @@
 import React from 'react'
-import TopicListItem from '../components/TopicListItem'
+import TopicPillItem from '../components/TopicPillItem'
 import TopicService from '../services/TopicService'
+import LessonEditor from "./LessonEditor";
 
-export default class TopicList
+export default class TopicPills
     extends React.Component {
 
     constructor(props){
@@ -98,39 +99,35 @@ export default class TopicList
     renderListOfTopics() {
         let topics = null;
         if(this.state) {
-            topics = this.state.topics.map(
-                function (topic) {
-                    return <TopicListItem key={topic.id}
-                                           topic={topic}/>
-                }
-            )
             topics = this.state.topics.map((topic) => {
-                return <TopicListItem topic={topic}
-                                       key={topic.id}
-                                       deleteTopic={this.deleteTopic}/>
-            });
+                    return <TopicPillItem key={topic.id}
+                                          topic={topic}
+                                          deleteTopic={this.deleteTopic}/>
+                }
+            );
         }
         return (
             topics
         )
     }
 
-    render() {
+    render(){
         return (
-            <div className="container-fluid">
-                <h4>Topic List for Lesson: {this.state.lessonId}</h4>
-                <ul className="nav nav-pills">
-                    {this.renderListOfTopics()}
-                </ul>
-                <input onChange={this.titleChanged}
-                       value={this.state.topic.title}
-                       placeholder="add topic"
-                       className="font-weight-bold text-center"
-                       style = {{marginLeft: 20, marginTop: 20}}/>
-                <button onClick={this.createTopic} className="btn btn-dark">
-                    <i className="fa fa-plus"></i>
-                </button>
-            </div>
-        );
+                <div>
+                    <br/><br/>
+                    <h4 style={{textAlign: "center"}}>Topics</h4>
+                    <ul className="nav nav-pills">
+                        {this.renderListOfTopics()}
+                        </ul>
+                    <br/>
+                    <input onChange={this.titleChanged}
+                           value={this.state.topic.title}
+                           placeholder="Add Topic"
+                           className="form-control text-center font-weight-bold"/>
+                    <button onClick={this.createTopic} className="btn btn-dark btn-block">
+                        <i className="fa fa-plus"></i>
+                    </button>
+                    <br/>
+                </div>)
     }
 }

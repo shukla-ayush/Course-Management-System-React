@@ -20,7 +20,6 @@ export default class ModuleList extends Component {
         this.createModule = this.createModule.bind(this);
         this.titleChanged = this.titleChanged.bind(this);
         this.deleteModule = this.deleteModule.bind(this);
-        this.displayLessons = this.displayLessons.bind(this);
         this.setCourseId = this.setCourseId.bind(this);
 
         this.moduleService = ModuleService.instance;
@@ -42,7 +41,6 @@ export default class ModuleList extends Component {
 
     componentDidMount() {
         this.setCourseId(this.props.courseId);
-        console.log(this.props.courseId);
     }
 
     componentWillReceiveProps(newProps){
@@ -51,14 +49,12 @@ export default class ModuleList extends Component {
     }
 
     createModule() {
-        console.log(this.state.module);
         this.moduleService
             .createModule(this.props.courseId, this.state.module)
             .then(() => { this.findAllModulesForCourse(this.props.courseId); });
     }
 
     titleChanged(event) {
-        console.log(event.target.value);
         this.setState({module: {title: event.target.value}});
     }
 
@@ -68,7 +64,8 @@ export default class ModuleList extends Component {
             modules = this.state.modules.map((module) => {
                     return <ModuleListItem key={module.id}
                                            module={module}
-                                           courseId={this.props.courseId}/>
+                                           courseId={this.props.courseId}
+                                            deleteModule={this.deleteModule}/>
                 }
             );
         }
@@ -99,47 +96,14 @@ export default class ModuleList extends Component {
             })
     }
 
-    displayLessons(moduleId) {
-        this.props.displayLessons(moduleId);
-    }
 
-    // render() {
-    //     return (
-    //         <div>
-    //             {/*<div>*/}
-    //             <h3 style={{textAlign: "left"}}>Modules</h3>
-    //             <br/>
-    //             <ul className="list-group">
-    //                 {this.renderListOfModules()}
-    //             </ul>
-    //             <br/>
-    //             <input onChange={this.titleChanged}
-    //                    value={this.state.module.title}
-    //                    placeholder="Add module"
-    //                    className="form-control text-center font-weight-bold"/>
-    //             <button onClick={this.createModule} className="btn btn-dark btn-block">
-    //                 <i className="fa fa-plus"></i>
-    //             </button>
-    //             {/*</div>*/}
-    //             {/*<div>*/}
-    //                 {/*<Router>*/}
-    //                     {/*<div className="container-fluid">*/}
-    //                         {/*<Route path="/courses/:courseId/module/:moduleId"*/}
-    //                                {/*component={CourseEditor}>*/}
-    //                         {/*</Route>*/}
-    //                     {/*</div>*/}
-    //                 {/*</Router>*/}
-    //             {/*</div>*/}
-    //         </div>
-    //     );
-    // }
     render(){
         return (
             <div>
             <Router>
             <div className="row">
                 <div className="col-4">
-                    <h3 style={{textAlign: "left"}}>Modules</h3>
+                    <h2 style={{textAlign: "center"}}>Modules</h2>
                     <br/>
                     <ul className="list-group">
                         {this.renderListOfModules()}
@@ -159,6 +123,7 @@ export default class ModuleList extends Component {
                 </div>
             </div>
             </Router>
-                </div>)
+            <br/>
+            </div>)
     }
 }

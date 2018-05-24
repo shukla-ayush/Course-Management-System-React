@@ -1,6 +1,8 @@
 import React from 'react'
 import LessonService from '../services/LessonService';
-import LessonListItem from '../components/LessonListItem'
+import LessonTabItem from '../components/LessonTabItem'
+import LessonEditor from "./LessonEditor";
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 export default class LessonTabs
     extends React.Component {
@@ -19,7 +21,6 @@ export default class LessonTabs
         this.createLesson = this.createLesson.bind(this);
         this.deleteLesson = this.deleteLesson.bind(this);
         this.titleChanged = this.titleChanged.bind(this);
-       // this.displayTopics = this.displayTopics.bind(this);
 
         this.lessonService = LessonService.instance;
     }
@@ -67,9 +68,6 @@ export default class LessonTabs
             .then(() => { this.findAllLessonsForModule(this.props.courseId, this.props.moduleId); });
     }
 
-    // displayTopics(lessonId) {
-    //     this.props.displayTopics(lessonId);
-    // }
 
     deleteLesson(lessonId) {
         var answer = window.confirm("Click Ok to Delete");
@@ -96,8 +94,11 @@ export default class LessonTabs
         let lessons = null;
         if(this.state) {
             lessons = this.state.lessons.map((lesson) => {
-                    return <LessonListItem key={lesson.id}
-                                           lesson={lesson}/>
+                    return <LessonTabItem key={lesson.id}
+                                          lesson={lesson}
+                                          courseId={this.props.courseId}
+                                          moduleId={this.props.moduleId}
+                                          deleteLesson={this.deleteLesson}/>
                 }
             );
         }
@@ -106,43 +107,32 @@ export default class LessonTabs
         )
     }
 
-    // render() {
-    //     return (
-    //         <div className="container-fluid">
-    //             <h4>Lesson List for module: {this.state.moduleId}</h4>
-    //             <ul className="nav nav-pills">
-    //                 {this.renderListOfLessons()}
-    //             </ul>
-    //                 <input onChange={this.titleChanged}
-    //                        value={this.state.lesson.title}
-    //                        placeholder="add lesson"
-    //                        className="font-weight-bold text-center"
-    //                        style = {{marginLeft: 20, marginTop: 20}}/>
-    //                 <button onClick={this.createLesson} className="btn btn-dark">
-    //                       <i className="fa fa-plus"></i>
-    //                 </button>
-    //         </div>
-    //     );
-    // }
-
-    render() {
+    render(){
         return (
             <div>
-                <h3 style={{textAlign: "left"}}>Lessons</h3>
-                <br/>
-                <ul className="nav nav-pills">
-                    {this.renderListOfLessons()}
-                </ul>
-                <br/>
-                <input onChange={this.titleChanged}
-                       value={this.state.lesson.title}
-                       placeholder="Add Lesson"
-                       className="form-control text-center font-weight-bold"/>
-                <button onClick={this.createLesson} className="btn btn-primary btn-block">
-                    <i className="fa fa-plus"></i>
-                </button>
-            </div>
-        );
+                <Router>
+                    <div>
+                        <div>
+                            <h3 style={{textAlign: "center"}}>Lessons</h3>
+                            <ul className="nav nav-pills">
+                                {this.renderListOfLessons()}
+                            </ul>
+                            <br/>
+                            <input onChange={this.titleChanged}
+                                   value={this.state.lesson.title}
+                                   placeholder="Add Lesson"
+                                   className="form-control text-center font-weight-bold"/>
+                            <button onClick={this.createLesson} className="btn btn-dark btn-block">
+                                <i className="fa fa-plus"></i>
+                            </button>
+                        </div>
+                        <div>
+                            <Route path="/course/:courseId/module/:moduleId/lesson/:lessonId"
+                                   component={LessonEditor}/>
+                        </div>
+                    </div>
+                </Router>
+            </div>)
     }
 
 }

@@ -14,18 +14,23 @@ export default class ModuleEditor
             this.setCourseId.bind(this);
         this.setModuleId =
             this.setModuleId.bind(this);
+        this.setLessonId =
+            this.setLessonId.bind(this);
         this.state = {
-            courseId: '', moduleId: ''
+            courseId: '', moduleId: '', lessonId: ''
         }}
 
-        componentDidMount()
-        {
-            this.setCourseId(
-                this.props.match.params.courseId);
+    componentDidMount()
+    {
+        this.setCourseId(
+            this.props.match.params.courseId);
 
-            this.setModuleId(
-                this.props.match.params.moduleId);
-        }
+        this.setModuleId(
+            this.props.match.params.moduleId);
+
+        this.setLessonId(
+            this.props.match.params.lessonId);
+    }
 
 
     setCourseId(courseId) {
@@ -36,6 +41,10 @@ export default class ModuleEditor
         this.setState
         ({moduleId: moduleId});
     }
+    setLessonId(lessonId) {
+        this.setState
+        ({lessonId: lessonId});
+    }
 
     componentWillReceiveProps(newProps) {
         this.setCourseId(
@@ -43,19 +52,23 @@ export default class ModuleEditor
 
         this.setModuleId(
             newProps.match.params.moduleId);
+
+        this.setLessonId(
+            newProps.match.params.lessonId);
     }
 
 
 
     render()
-        {
-            return (
-                <div>
-                    <LessonTabs courseId={this.state.courseId}
-                                moduleId={this.state.moduleId}/>
-                </div>
-            );
-        }
+    {
+        return (
+            <div>
+                <TopicPills courseId={this.state.courseId}
+                            moduleId={this.state.moduleId}
+                            lessonId={this.state.lessonId}/>
+            </div>
+        );
     }
+}
 
 

@@ -1,11 +1,11 @@
 const LESSON_API_URL =
-    'http://localhost:8085/api/course/CID/module/MID/lesson';
+    'https://fathomless-brook-39975.herokuapp.com/api/course/CID/module/MID/lesson';
 
 const LESSON_API_URL2 =
-    'http://localhost:8085/api/lesson/LESSON_ID';
+    'https://fathomless-brook-39975.herokuapp.com/api/lesson/LESSON_ID';
 
 const LESSON_API_URL3 =
-    'http://localhost:8085/api/lesson';
+    'https://fathomless-brook-39975.herokuapp.com/api/lesson';
 
 let _singleton = Symbol();
 export default class LessonService {
