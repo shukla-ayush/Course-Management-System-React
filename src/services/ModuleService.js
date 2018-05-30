@@ -1,11 +1,11 @@
-const MODULE_API_URL =
-             'http://fathomless-brook-39975.herokuapp.com/api/course/CID/module';
+const MODULE_API_URL = 'http://localhost:8085/api/course/CID/module';
+             //'http://fathomless-brook-39975.herokuapp.com/api/course/CID/module';
 
-const MODULE_API_URL2 =
-    'http://fathomless-brook-39975.herokuapp.com/api/module/MODULE_ID';
+const MODULE_API_URL2 = 'http://localhost:8085/api/module/MODULE_ID';
+    //'http://fathomless-brook-39975.herokuapp.com/api/module/MODULE_ID';
 
-const MODULE_API_URL3 =
-    'http://fathomless-brook-39975.herokuapp.com/api/module';
+const MODULE_API_URL3 = 'http://localhost:8085/api/module';
+    //'http://fathomless-brook-39975.herokuapp.com/api/module';
 
 let _singleton = Symbol();
 export default class ModuleService {

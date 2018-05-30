@@ -13,7 +13,7 @@ export default class LessonTabItem
             <div>
             <li className="list-group-item font-weight-bold nav-item"
                  style={{marginLeft: 20, marginTop: 20, backgroundColor: "black", color: "white"}}>
-                 <div class = "row">
+                 <div className = "row">
                  <div className="col-sm-8">
                      <Link to={`/course/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lesson.id}`} style={{color: "white"}}>
                          {this.props.lesson.title}
@@ -26,7 +26,7 @@ export default class LessonTabItem
                      onClick={() =>
                      {this.props.deleteLesson
                      (this.props.lesson.id)}}>
-                     <i className="fa fa-times"/>
+                     <i className="fa fa-trash"/>
                  </button>
                   </div>
                 </div>

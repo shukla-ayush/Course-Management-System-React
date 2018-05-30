@@ -2,6 +2,8 @@ import React from 'react'
 import TopicPillItem from '../components/TopicPillItem'
 import TopicService from '../services/TopicService'
 import LessonEditor from "./LessonEditor";
+import TopicEditor from "./TopicEditor";
+import {BrowserRouter as Router, Route} from 'react-router-dom'
 
 export default class TopicPills
     extends React.Component {
@@ -102,6 +104,9 @@ export default class TopicPills
             topics = this.state.topics.map((topic) => {
                     return <TopicPillItem key={topic.id}
                                           topic={topic}
+                                          courseId={this.props.courseId}
+                                          moduleId={this.props.moduleId}
+                                          lessonId={this.props.lessonId}
                                           deleteTopic={this.deleteTopic}/>
                 }
             );
@@ -113,7 +118,10 @@ export default class TopicPills
 
     render(){
         return (
+            <div>
+                <Router>
                 <div>
+                    <div>
                     <br/><br/>
                     <h4 style={{textAlign: "center"}}>Topics</h4>
                     <ul className="nav nav-pills">
@@ -128,6 +136,13 @@ export default class TopicPills
                         <i className="fa fa-plus"></i>
                     </button>
                     <br/>
-                </div>)
+                    </div>
+                    <div>
+                        <Route path="/course/:courseId/module/:moduleId/lesson/:lessonId/topic/:topicId"
+                               component={TopicEditor}/>
+                    </div>
+                </div>
+                </Router>
+            </div>)
     }
 }

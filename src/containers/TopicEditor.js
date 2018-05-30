@@ -4,8 +4,14 @@ import LessonTabs from './LessonTabs'
 import TopicPills from './TopicPills'
 import {BrowserRouter as Router, Route} from 'react-router-dom'
 import CourseList from "./CourseList";
+import {widgetReducer} from "../reducers/widgetReducer";
+import {createStore} from "redux";
+import {Provider} from "react-redux";
+import App from "./widgetList";
 
-export default class LessonEditor
+let store = createStore(widgetReducer)
+
+export default class TopicEditor
     extends React.Component{
 
     constructor(props) {
@@ -16,8 +22,10 @@ export default class LessonEditor
             this.setModuleId.bind(this);
         this.setLessonId =
             this.setLessonId.bind(this);
+        this.setTopicId =
+            this.setTopicId.bind(this);
         this.state = {
-            courseId: '', moduleId: '', lessonId: ''
+            courseId: '', moduleId: '', lessonId: '', topicId: ''
         }}
 
     componentDidMount()
@@ -30,6 +38,9 @@ export default class LessonEditor
 
         this.setLessonId(
             this.props.match.params.lessonId);
+
+        this.setTopicId(
+            this.props.match.params.topicId);
     }
 
 
@@ -45,6 +56,10 @@ export default class LessonEditor
         this.setState
         ({lessonId: lessonId});
     }
+    setTopicId(topicId) {
+        this.setState
+        ({topicId: topicId});
+    }
 
     componentWillReceiveProps(newProps) {
         this.setCourseId(
@@ -55,6 +70,9 @@ export default class LessonEditor
 
         this.setLessonId(
             newProps.match.params.lessonId);
+
+        this.setTopicId(
+            newProps.match.params.topicId);
     }
 
 
@@ -62,11 +80,9 @@ export default class LessonEditor
     render()
     {
         return (
-            <div>
-                <TopicPills courseId={this.state.courseId}
-                            moduleId={this.state.moduleId}
-                            lessonId={this.state.lessonId}/>
-            </div>
+            <Provider store={store}>
+                <App topicId = {this.props.match.params.topicId}/>
+            </Provider>
         );
     }
 }
