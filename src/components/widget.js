@@ -15,7 +15,7 @@ const Heading = ({widget, preview, headingTextChanged, headingSizeChanged}) => {
                 <div className="row">
                 <div className="col-sm-6">
                 <input onChange={() => headingTextChanged(widget.id, inputElem.value)}
-                       value={widget.text}
+                       value={widget.headingText}
                        placeholder="Heading Text"
                        className="form-control"
                        ref={node => inputElem = node}/>
@@ -36,9 +36,9 @@ const Heading = ({widget, preview, headingTextChanged, headingSizeChanged}) => {
                 <br/>
                 <h4>Preview</h4>
             </div>
-            {widget.size == 1 && <h1>{widget.text}</h1>}
-            {widget.size == 2 && <h2>{widget.text}</h2>}
-            {widget.size == 3 && <h3>{widget.text}</h3>}
+            {widget.size == 1 && <h1>{widget.headingText}</h1>}
+            {widget.size == 2 && <h2>{widget.headingText}</h2>}
+            {widget.size == 3 && <h3>{widget.headingText}</h3>}
             </div>
         </div>
     )
@@ -55,7 +55,7 @@ const Paragraph = ({widget, preview, paragraphTextChanged}) => {
                 <div hidden={preview}>
                     <div className="row">
                     <div className="col-sm-6">
-                    <input onChange={() => paragraphTextChanged(widget.id, inputElem.value)}
+                    <textarea onChange={() => paragraphTextChanged(widget.id, inputElem.value)}
                            value={widget.text}
                            placeholder="Paragraph Text"
                            className="form-control"
@@ -85,7 +85,7 @@ const Image = ({widget, preview, imageUrlChanged}) => {
                     <div className="row">
                     <div className="col-sm-6">
                     <input onChange={() => imageUrlChanged(widget.id, inputElem.value)}
-                           value={widget.text}
+                           value={widget.src}
                            placeholder="Image URL"
                            className="form-control"
                            ref={node => inputElem = node}/>
@@ -99,7 +99,7 @@ const Image = ({widget, preview, imageUrlChanged}) => {
                 <div style = {{width: 200, height: 200}}>
                 <img
                     style = {{maxWidth: "100%", maxHeight: "100%"}}
-                    src = {widget.text}/>
+                    src = {widget.src}/>
                 </div>
             </div>
         </div>
@@ -119,10 +119,11 @@ const Link = ({widget, preview, hyperlinkChanged, linkNameChanged}) => {
                     <div className="row">
                     <div className="col-sm-6">
                     <input onChange={() => hyperlinkChanged(widget.id, inputElem.value)}
-                           value={widget.text}
+                           value={widget.linkUrl}
                            placeholder="URL"
                            className="form-control"
                            ref={node => inputElem = node}/>
+                    <br/>
                     <input onChange={() => linkNameChanged(widget.id, inputElemName.value)}
                            value={widget.linkName}
                            placeholder="Link name"
@@ -135,12 +136,54 @@ const Link = ({widget, preview, hyperlinkChanged, linkNameChanged}) => {
                     <br/>
                     <h4>Preview</h4>
                 </div>
-                <a href = {widget.text}>{widget.linkName}</a>
+                <a  style={{color: "PowderBlue"}}
+                    href = {widget.linkUrl}>{widget.linkName}</a>
             </div>
         </div>
     )
 }
 
+const List = ({widget, preview, listTextChanged, listTypeChanged}) => {
+    let selectElem
+    let inputElem
+    return(
+        <div className="row">
+            <div className="col-sm-1">
+            </div>
+            <div className="col-sm-11">
+                <div hidden={preview}>
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <textarea onChange={() => listTextChanged(widget.id, inputElem.value)}
+                                   value={widget.listItemsText}
+                                   placeholder="Enter each item in separate row"
+                                   className="form-control"
+                                   ref={node => inputElem = node}/>
+
+                        </div>
+                            <div className="col-sm-3">
+                            <select className="btn-dark form-control"
+                                    onChange={() => listTypeChanged(widget.id, selectElem.value)}
+                                    value={widget.listType}
+                                    ref={node => selectElem = node}>
+                                <option value="1">Unordered List</option>
+                                <option value="2">Ordered List</option>
+                            </select>
+                            </div>
+                        <div className="col-sm-3">
+                        </div>
+                    </div>
+                    <br/>
+                    <h4>Preview</h4>
+                </div>
+                {widget.listType == 1 && <ul>{widget.listItemsText.split("\n").map(function(item){return <li>{item}</li>;})}</ul>}
+                {widget.listType == 2 && <ol>{widget.listItemsText.split("\n").map(function(item){return <li>{item}</li>;})}</ol>}
+                {/*<ul> {this.props.list.map(function(listValue){ return <li>{listValue}</li>; })} </ul>*/}
+                {/*<ul>{widget.listItemsText.split("\n").map(function(item){return <li>{item}</li>;})}</ul>*/}
+            </div>
+        </div>
+    )
+}
 
 const dispatchToPropsMapper = dispatch => ({
     headingTextChanged: (widgetId, newText) =>
@@ -154,7 +197,11 @@ const dispatchToPropsMapper = dispatch => ({
     hyperlinkChanged: (widgetId, newLinkText) =>
         actions.hyperlinkChanged(dispatch, widgetId, newLinkText),
     linkNameChanged: (widgetId, newLinkName) =>
-        actions.linkNameChanged(dispatch, widgetId, newLinkName)
+        actions.linkNameChanged(dispatch, widgetId, newLinkName),
+    listTextChanged: (widgetId, newListText) =>
+        actions.listTextChanged(dispatch, widgetId, newListText),
+    listTypeChanged: (widgetId, newListType) =>
+        actions.listTypeChanged(dispatch, widgetId, newListType)
 })
 
 const stateToPropsMapper = state => ({
@@ -169,27 +216,30 @@ const ImageContainer = connect(stateToPropsMapper, dispatchToPropsMapper)(Image)
 
 const LinkContainer = connect(stateToPropsMapper, dispatchToPropsMapper)(Link)
 
+const ListContainer = connect(stateToPropsMapper, dispatchToPropsMapper)(List)
+
 
 const Widget = ({widget, preview, dispatch}) => {
     let selectElement
     return(
-        <li>
+        <div>
+        <li style={{listStyleType: "none"}}>
             <div hidden={preview}>
                 <div className="row">
                 <div className="col-sm-1">
                 </div>
-                <div className="col-sm-6 font-weight-bold">
+                <div className="col-sm-5 font-weight-bold">
                  <h3>{widget.widgetType} Widget</h3><br/>
                 </div>
-                <div className="col-sm-1.5">
-                    <button>
+                <div className="col-sm-2">
+                    <button className="btn btn-dark">
                         <i className="fa fa-arrow-up"/>
                     </button>
-                    <button>
+                    <button className="btn btn-dark">
                         <i className="fa fa-arrow-down"/>
                     </button>
                 </div>
-                <div className="col-sm-2.5">
+                <div className="col-sm-3">
                 <select className="form-control"
                         value={widget.widgetType}
                         onChange={e =>
@@ -216,10 +266,14 @@ const Widget = ({widget, preview, dispatch}) => {
             <div>
                 {widget.widgetType==='Heading' && <HeadingContainer widget={widget}/>}
                 {widget.widgetType==='Paragraph' && <ParagraphContainer widget={widget}/>}
+                {widget.widgetType==='List' && <ListContainer widget={widget}/>}
                 {widget.widgetType==='Image' && <ImageContainer widget={widget}/>}
                 {widget.widgetType==='Link' && <LinkContainer widget={widget}/>}
             </div>
         </li>
+            <br/>
+            <br/>
+        </div>
     )
 }
 const WidgetContainer = connect(state => ({

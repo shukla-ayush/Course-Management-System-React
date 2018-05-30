@@ -2,7 +2,7 @@ import React from 'react'
 import LessonService from '../services/LessonService';
 import LessonTabItem from '../components/LessonTabItem'
 import LessonEditor from "./LessonEditor";
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 export default class LessonTabs
     extends React.Component {
@@ -110,7 +110,7 @@ export default class LessonTabs
     render(){
         return (
             <div>
-                <Router>
+                <Switch>
                     <div>
                         <div>
                             <h3 style={{textAlign: "center"}}>Lessons</h3>
@@ -131,7 +131,7 @@ export default class LessonTabs
                                    component={LessonEditor}/>
                         </div>
                     </div>
-                </Router>
+                </Switch>
             </div>)
     }
 

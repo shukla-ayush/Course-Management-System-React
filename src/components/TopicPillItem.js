@@ -12,7 +12,7 @@ export default class TopicPillItem
         return (
             <div>
                 <li className="list-group-item font-weight-bold nav-item"
-                    style={{marginLeft: 20, marginTop: 20, backgroundColor: "White", color: "Black"}}>
+                    style={{marginLeft: 20, marginTop: 20, backgroundColor: "Silver", color: "Black"}}>
                     <div className = "row">
                         <div className="col-sm-8">
                             <Link to={`/course/${this.props.courseId}/module/${this.props.moduleId}/lesson/${this.props.lessonId}/topic/${this.props.topic.id}`} style={{color: "black"}}>

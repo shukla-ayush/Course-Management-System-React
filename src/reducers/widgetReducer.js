@@ -14,7 +14,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             return {
                 widgets: state.widgets.map(widget => {
                     if(widget.id === action.id) {
-                        widget.text = action.text
+                        widget.headingText = action.headingText
                     }
                     return Object.assign({}, widget)
                 })
@@ -44,7 +44,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             return {
                 widgets: state.widgets.map(widget => {
                     if(widget.id === action.id) {
-                        widget.text = action.text
+                        widget.src = action.src
                     }
                     return Object.assign({}, widget)
                 })
@@ -54,7 +54,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
             return {
                 widgets: state.widgets.map(widget => {
                     if(widget.id === action.id) {
-                        widget.text = action.text
+                        widget.linkUrl = action.linkUrl
                     }
                     return Object.assign({}, widget)
                 })
@@ -65,6 +65,26 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                 widgets: state.widgets.map(widget => {
                     if(widget.id === action.id) {
                         widget.linkName = action.linkName
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
+        case constants.LIST_TEXT_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.listItemsText = action.listItemsText
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
+        case constants.LIST_TYPE_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.listType = action.listType
                     }
                     return Object.assign({}, widget)
                 })
@@ -114,7 +134,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                     ...state.widgets,
                     {
                         id: state.widgets.length + 1,
-                        text: 'New Widget',
+                        text: '',
                         widgetType: 'Paragraph',
                         size: '2',
                     }

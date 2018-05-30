@@ -5,7 +5,7 @@ export const headingTextChanged = (dispatch, widgetId, newText) => (
     dispatch({
         type: constants.HEADING_TEXT_CHANGED,
         id: widgetId,
-        text: newText})
+        headingText: newText})
 )
 export const headingSizeChanged = (dispatch, widgetId, newSize) => (
     dispatch({
@@ -24,14 +24,14 @@ export const imageUrlChanged = (dispatch, widgetId, newImageText) => (
     dispatch({
         type: constants.IMAGE_URL_CHANGED,
         id: widgetId,
-        text: newImageText})
+        src: newImageText})
 )
 
 export const hyperlinkChanged = (dispatch, widgetId, newLinkText) => (
     dispatch({
         type: constants.HYPERLINK_CHANGED,
         id: widgetId,
-        text: newLinkText})
+        linkUrl: newLinkText})
 )
 
 export const linkNameChanged = (dispatch, widgetId, newLinkName) => (
@@ -39,6 +39,20 @@ export const linkNameChanged = (dispatch, widgetId, newLinkName) => (
         type: constants.LINK_NAME_CHANGED,
         id: widgetId,
         linkName: newLinkName})
+)
+
+export const listTextChanged = (dispatch, widgetId, newListText) => (
+    dispatch({
+        type: constants.LIST_TEXT_CHANGED,
+        id: widgetId,
+        listItemsText: newListText})
+)
+
+export const listTypeChanged = (dispatch, widgetId, newListType) => (
+    dispatch({
+        type: constants.LIST_TYPE_CHANGED,
+        id: widgetId,
+        listType: newListType})
 )
 
 export const findAllWidgets = dispatch => {

@@ -3,7 +3,7 @@ import TopicPillItem from '../components/TopicPillItem'
 import TopicService from '../services/TopicService'
 import LessonEditor from "./LessonEditor";
 import TopicEditor from "./TopicEditor";
-import {BrowserRouter as Router, Route} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
 
 export default class TopicPills
     extends React.Component {
@@ -119,7 +119,7 @@ export default class TopicPills
     render(){
         return (
             <div>
-                <Router>
+                <Switch>
                 <div>
                     <div>
                     <br/><br/>
@@ -142,7 +142,7 @@ export default class TopicPills
                                component={TopicEditor}/>
                     </div>
                 </div>
-                </Router>
+                </Switch>
             </div>)
     }
 }
