@@ -60,6 +60,16 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                 })
             }
 
+        case constants.LINK_NAME_CHANGED:
+            return {
+                widgets: state.widgets.map(widget => {
+                    if(widget.id === action.id) {
+                        widget.linkName = action.linkName
+                    }
+                    return Object.assign({}, widget)
+                })
+            }
+
         case constants.SELECT_WIDGET_TYPE:
             console.log(action);
             let newState = {
@@ -106,7 +116,7 @@ export const widgetReducer = (state = {widgets: [], preview: false}, action) => 
                         id: state.widgets.length + 1,
                         text: 'New Widget',
                         widgetType: 'Paragraph',
-                        size: '2'
+                        size: '2',
                     }
                 ]
             }

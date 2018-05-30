@@ -12,11 +12,10 @@ const Heading = ({widget, preview, headingTextChanged, headingSizeChanged}) => {
             </div>
             <div className="col-sm-11">
             <div hidden={preview}>
-                <h4>Heading</h4>
                 <div className="row">
                 <div className="col-sm-6">
                 <input onChange={() => headingTextChanged(widget.id, inputElem.value)}
-                       //value={widget.text}
+                       value={widget.text}
                        placeholder="Heading Text"
                        className="form-control"
                        ref={node => inputElem = node}/>
@@ -54,7 +53,6 @@ const Paragraph = ({widget, preview, paragraphTextChanged}) => {
             </div>
             <div className="col-sm-11">
                 <div hidden={preview}>
-                    <h4>Paragraph Text</h4>
                     <div className="row">
                     <div className="col-sm-6">
                     <input onChange={() => paragraphTextChanged(widget.id, inputElem.value)}
@@ -84,7 +82,6 @@ const Image = ({widget, preview, imageUrlChanged}) => {
             </div>
             <div className="col-sm-11">
                 <div hidden={preview}>
-                    <h4>Image URL</h4>
                     <div className="row">
                     <div className="col-sm-6">
                     <input onChange={() => imageUrlChanged(widget.id, inputElem.value)}
@@ -109,16 +106,16 @@ const Image = ({widget, preview, imageUrlChanged}) => {
     )
 }
 
-const Link = ({widget, preview, hyperlinkChanged}) => {
+const Link = ({widget, preview, hyperlinkChanged, linkNameChanged}) => {
     let selectElem
     let inputElem
+    let inputElemName
     return(
         <div className="row">
             <div className="col-sm-1">
             </div>
             <div className="col-sm-11">
                 <div hidden={preview}>
-                    <h4>URL</h4>
                     <div className="row">
                     <div className="col-sm-6">
                     <input onChange={() => hyperlinkChanged(widget.id, inputElem.value)}
@@ -126,6 +123,11 @@ const Link = ({widget, preview, hyperlinkChanged}) => {
                            placeholder="URL"
                            className="form-control"
                            ref={node => inputElem = node}/>
+                    <input onChange={() => linkNameChanged(widget.id, inputElemName.value)}
+                           value={widget.linkName}
+                           placeholder="Link name"
+                           className="form-control"
+                           ref={node => inputElemName = node}/>
                     </div>
                     <div className="col-sm-6">
                     </div>
@@ -133,12 +135,11 @@ const Link = ({widget, preview, hyperlinkChanged}) => {
                     <br/>
                     <h4>Preview</h4>
                 </div>
-                <a href = {widget.text}>Link to URL</a>
+                <a href = {widget.text}>{widget.linkName}</a>
             </div>
         </div>
     )
 }
-
 
 
 const dispatchToPropsMapper = dispatch => ({
@@ -151,7 +152,9 @@ const dispatchToPropsMapper = dispatch => ({
     imageUrlChanged: (widgetId, newImageText) =>
         actions.imageUrlChanged(dispatch, widgetId, newImageText),
     hyperlinkChanged: (widgetId, newLinkText) =>
-        actions.hyperlinkChanged(dispatch, widgetId, newLinkText)
+        actions.hyperlinkChanged(dispatch, widgetId, newLinkText),
+    linkNameChanged: (widgetId, newLinkName) =>
+        actions.linkNameChanged(dispatch, widgetId, newLinkName)
 })
 
 const stateToPropsMapper = state => ({
