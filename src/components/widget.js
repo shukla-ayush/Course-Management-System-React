@@ -292,7 +292,7 @@ const Widget = ({widget, preview, dispatch}) => {
     let selectElement
     return(
         <div>
-        <li style={{listStyleType: "none"}}>
+        <li style={{listStyleType: "none"}} className="border">
             <div hidden={preview}>
                 <div className="row">
                 <div className="col-sm-1">
