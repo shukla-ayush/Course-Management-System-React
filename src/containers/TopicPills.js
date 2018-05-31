@@ -123,7 +123,7 @@ export default class TopicPills
                 <div>
                     <div>
                     <br/><br/>
-                    <h4 style={{textAlign: "center"}}>Topics</h4>
+                    <h3 style={{textAlign: "center"}}>Topics</h3>
                     <ul className="nav nav-pills">
                         {this.renderListOfTopics()}
                         </ul>

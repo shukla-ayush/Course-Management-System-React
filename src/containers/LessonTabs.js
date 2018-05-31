@@ -28,8 +28,6 @@ export default class LessonTabs
     componentDidMount() {
         this.setCourseId(this.props.courseId);
         this.setModuleId(this.props.moduleId);
-        console.log(this.props.courseId);
-        console.log(this.props.moduleId);
         this.findAllLessonsForModule(this.props.courseId, this.props.moduleId)
     }
 
@@ -58,7 +56,6 @@ export default class LessonTabs
     }
 
     titleChanged(event) {
-        console.log(event.target.value);
         this.setState({lesson: {title: event.target.value}});
     }
 

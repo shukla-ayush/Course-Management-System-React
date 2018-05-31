@@ -13,6 +13,14 @@ export const headingSizeChanged = (dispatch, widgetId, newSize) => (
         id: widgetId,
         size: newSize})
 )
+
+export const widgetNameChanged = (dispatch, widgetId, newName) => (
+    dispatch({
+        type: constants.WIDGET_NAME_CHANGED,
+        id: widgetId,
+        widgetName: newName})
+)
+
 export const paragraphTextChanged = (dispatch, widgetId, newText) => (
     dispatch({
         type: constants.PARAGRAPH_TEXT_CHANGED,
@@ -56,7 +64,7 @@ export const listTypeChanged = (dispatch, widgetId, newListType) => (
 )
 
 export const findAllWidgets = dispatch => {
-    fetch('http://localhost:8085/api/widget')
+    fetch('http://fathomless-brook-39975.herokuapp.com/api/widget')
         .then(response => (response.json()))
         .then(widgets => dispatch({
             type: constants.FIND_ALL_WIDGETS,
@@ -64,12 +72,14 @@ export const findAllWidgets = dispatch => {
 }
 
 export const findAllWidgetsForTopic = (dispatch,topicId) => {
-    fetch('http://localhost:8085/api/widget/'+topicId)
+    fetch('http://fathomless-brook-39975.herokuapp.com/api/widget/'+topicId)
         .then(response => (response.json()))
         .then(widgets => dispatch({
             type: constants.FIND_ALL_WIDGETS_FOR_TOPIC,
-            widgets: widgets,
-            topicId: topicId}))
+            widgets: widgets.sort(function (a,b) {
+                return a.widgetOrder > b.widgetOrder
+            })
+            }))
 }
 
 export const addWidget = dispatch => (

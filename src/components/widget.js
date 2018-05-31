@@ -3,9 +3,10 @@ import {connect} from 'react-redux'
 import {DELETE_WIDGET} from "../constants/index"
 import * as actions from '../actions'
 
-const Heading = ({widget, preview, headingTextChanged, headingSizeChanged}) => {
+const Heading = ({widget, preview, headingTextChanged, headingSizeChanged, widgetNameChanged}) => {
     let selectElem
     let inputElem
+    let inputElem2
     return(
         <div className="row">
             <div className="col-sm-1">
@@ -34,6 +35,19 @@ const Heading = ({widget, preview, headingTextChanged, headingSizeChanged}) => {
                 </div>
                 </div>
                 <br/>
+                <div className="row">
+                <div className="col-sm-6">
+                <input onChange={() => widgetNameChanged(widget.id, inputElem2.value)}
+                       value={widget.widgetName}
+                       placeholder="Widget Name"
+                       className="form-control"
+                       ref={node => inputElem2 = node}/>
+                </div>
+                <div className="col-sm-6">
+                </div>
+                </div>
+                <br/>
+                <br/>
                 <h4>Preview</h4>
             </div>
             {widget.size == 1 && <h1>{widget.headingText}</h1>}
@@ -44,9 +58,10 @@ const Heading = ({widget, preview, headingTextChanged, headingSizeChanged}) => {
     )
 }
 
-const Paragraph = ({widget, preview, paragraphTextChanged}) => {
+const Paragraph = ({widget, preview, paragraphTextChanged, widgetNameChanged}) => {
     let selectElem
     let inputElem
+    let inputElem3
     return(
         <div className="row">
             <div className="col-sm-1">
@@ -65,6 +80,18 @@ const Paragraph = ({widget, preview, paragraphTextChanged}) => {
                     </div>
                     </div>
                     <br/>
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <input onChange={() => widgetNameChanged(widget.id, inputElem3.value)}
+                                   value={widget.widgetName}
+                                   placeholder="Widget Name"
+                                   className="form-control"
+                                   ref={node => inputElem3 = node}/>
+                        </div>
+                        <div className="col-sm-6">
+                        </div>
+                    </div>
+                    <br/>
                     <h4>Preview</h4>
                 </div>
                 <p>{widget.text}</p>
@@ -73,9 +100,10 @@ const Paragraph = ({widget, preview, paragraphTextChanged}) => {
     )
 }
 
-const Image = ({widget, preview, imageUrlChanged}) => {
+const Image = ({widget, preview, imageUrlChanged, widgetNameChanged}) => {
     let selectElem
     let inputElem
+    let inputElem4
     return(
         <div className="row">
             <div className="col-sm-1">
@@ -94,6 +122,19 @@ const Image = ({widget, preview, imageUrlChanged}) => {
                     </div>
                     </div>
                     <br/>
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <input onChange={() => widgetNameChanged(widget.id, inputElem4.value)}
+                                   value={widget.widgetName}
+                                   placeholder="Widget Name"
+                                   className="form-control"
+                                   ref={node => inputElem4 = node}/>
+                        </div>
+                        <div className="col-sm-6">
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
                     <h4>Preview</h4>
                 </div>
                 <div style = {{width: 200, height: 200}}>
@@ -106,9 +147,10 @@ const Image = ({widget, preview, imageUrlChanged}) => {
     )
 }
 
-const Link = ({widget, preview, hyperlinkChanged, linkNameChanged}) => {
+const Link = ({widget, preview, hyperlinkChanged, linkNameChanged, widgetNameChanged}) => {
     let selectElem
     let inputElem
+    let inputElem5
     let inputElemName
     return(
         <div className="row">
@@ -120,19 +162,32 @@ const Link = ({widget, preview, hyperlinkChanged, linkNameChanged}) => {
                     <div className="col-sm-6">
                     <input onChange={() => hyperlinkChanged(widget.id, inputElem.value)}
                            value={widget.linkUrl}
-                           placeholder="URL"
+                           placeholder="Link URL"
                            className="form-control"
                            ref={node => inputElem = node}/>
                     <br/>
                     <input onChange={() => linkNameChanged(widget.id, inputElemName.value)}
                            value={widget.linkName}
-                           placeholder="Link name"
+                           placeholder="Link text"
                            className="form-control"
                            ref={node => inputElemName = node}/>
                     </div>
                     <div className="col-sm-6">
                     </div>
                     </div>
+                    <br/>
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <input onChange={() => widgetNameChanged(widget.id, inputElem5.value)}
+                                   value={widget.widgetName}
+                                   placeholder="Widget Name"
+                                   className="form-control"
+                                   ref={node => inputElem5 = node}/>
+                        </div>
+                        <div className="col-sm-6">
+                        </div>
+                    </div>
+                    <br/>
                     <br/>
                     <h4>Preview</h4>
                 </div>
@@ -143,9 +198,10 @@ const Link = ({widget, preview, hyperlinkChanged, linkNameChanged}) => {
     )
 }
 
-const List = ({widget, preview, listTextChanged, listTypeChanged}) => {
+const List = ({widget, preview, listTextChanged, listTypeChanged, widgetNameChanged}) => {
     let selectElem
     let inputElem
+    let inputElem6
     return(
         <div className="row">
             <div className="col-sm-1">
@@ -174,12 +230,23 @@ const List = ({widget, preview, listTextChanged, listTypeChanged}) => {
                         </div>
                     </div>
                     <br/>
+                    <div className="row">
+                        <div className="col-sm-6">
+                            <input onChange={() => widgetNameChanged(widget.id, inputElem6.value)}
+                                   value={widget.widgetName}
+                                   placeholder="Widget Name"
+                                   className="form-control"
+                                   ref={node => inputElem6 = node}/>
+                        </div>
+                        <div className="col-sm-6">
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
                     <h4>Preview</h4>
                 </div>
                 {widget.listType == 1 && <ul>{widget.listItemsText.split("\n").map(function(item){return <li>{item}</li>;})}</ul>}
                 {widget.listType == 2 && <ol>{widget.listItemsText.split("\n").map(function(item){return <li>{item}</li>;})}</ol>}
-                {/*<ul> {this.props.list.map(function(listValue){ return <li>{listValue}</li>; })} </ul>*/}
-                {/*<ul>{widget.listItemsText.split("\n").map(function(item){return <li>{item}</li>;})}</ul>*/}
             </div>
         </div>
     )
@@ -201,7 +268,9 @@ const dispatchToPropsMapper = dispatch => ({
     listTextChanged: (widgetId, newListText) =>
         actions.listTextChanged(dispatch, widgetId, newListText),
     listTypeChanged: (widgetId, newListType) =>
-        actions.listTypeChanged(dispatch, widgetId, newListType)
+        actions.listTypeChanged(dispatch, widgetId, newListType),
+    widgetNameChanged: (widgetId, newWidgetName) =>
+        actions.widgetNameChanged(dispatch, widgetId, newWidgetName)
 })
 
 const stateToPropsMapper = state => ({
@@ -232,10 +301,16 @@ const Widget = ({widget, preview, dispatch}) => {
                  <h3>{widget.widgetType} Widget</h3><br/>
                 </div>
                 <div className="col-sm-2">
-                    <button className="btn btn-dark">
+                    <button onClick={e => (
+                        dispatch({type: 'MOVE_UP', widget: widget})
+                    )}
+                        className="btn btn-dark">
                         <i className="fa fa-arrow-up"/>
                     </button>
-                    <button className="btn btn-dark">
+                    <button onClick={e => (
+                        dispatch({type: 'MOVE_DOWN', widget: widget})
+                    )}
+                        className="btn btn-dark">
                         <i className="fa fa-arrow-down"/>
                     </button>
                 </div>
